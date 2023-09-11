@@ -17,7 +17,7 @@
                 return;
             }
 
-            console.log(data.result);
+            // console.log(data.result);
 
             // 2) Get the "nuts" data
             const location = data.result.admin_county ? `${data.result.admin_county} County Council` : data.result.admin_district;
@@ -30,8 +30,6 @@
                 header: true,
                 delimiter: ',',
                 complete: function (results) {
-
-                    console.log(location);
 
                     // 4) Match CSV data with "nuts" data as closely as possible
                     const csvRow = results.data.find(row => row.loc.trim().toLowerCase() === location.trim().toLowerCase());
