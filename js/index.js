@@ -39,7 +39,7 @@
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
                                 <p><strong>Our rating:</strong> <span class="rating ${csvRow.rating}-rating">${csvRow.rating}</span></p>
-                                <p><a href="https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all">Write to your local councillors</a></p>
+                                <p><a id="writeToThem" href="#">Write to your local councillors</a></p>
                                 <p>${csvRow.description}</p>
                             </div>`;
                     }
@@ -56,6 +56,15 @@
                         height: docHeight
                     }, "https://www.vegansociety.com");
 
+                    const writeLink = document.querySelector("#writeToThem");
+                    const url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
+
+                    writeLink.addEventListener("click", function (event){
+                        event.preventDefault();
+
+
+                    });
+
                 }
             });
 
@@ -64,15 +73,3 @@
     });
 
 })();
-
-/*
-function onSearchResultsLoaded() {
-    let heightRequired = document.body.scrollHeight; // or another way to determine height
-    
-    // Send a message to the parent page
-    window.parent.postMessage({
-        action: "adjustHeight",
-        height: heightRequired
-    }, "*");
-}
-*/
