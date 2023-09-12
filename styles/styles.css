@@ -81,9 +81,12 @@ p {
 
 @media screen and (max-width:40em) {
     .form-item input {
-        width: 100%;
+        display: block;
+        width: calc(100% - .5rem);
+        float: none;
     }
     .form-item label {
+        display: block;
         margin-bottom: 1em;
     }
 }
