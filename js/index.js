@@ -38,9 +38,9 @@
                         HTML = `
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
-                                <p><strong>Our rating:</strong> <span class="rating ${csvRow.rating}-rating">${csvRow.rating}</span></p>
+                                <p><strong>Our rating:</strong> <span class="rating ${csvRow.rating.toLowerCase()}-rating">${csvRow.rating}</span></p>
                                 <p><a id="writeToThem" href="#">Write to your local councillors</a></p>
-                                <p>${csvRow.description}</p>
+                                <p>${csvRow.responses}</p>
                             </div>`;
                     }
 
