@@ -47,6 +47,15 @@
                     // Output the HTML result
                     document.querySelector('#search-results').innerHTML = HTML;
 
+                    // Get the document height
+                    const docHeight = document.body.scrollHeight;
+
+                    // Send the page height out to a parent window
+                    window.parent.postMessage({
+                        action: "adjustHeight",
+                        height: docHeight
+                    }, "https://www.vegansociety.com");
+
                 }
             });
 
@@ -55,3 +64,15 @@
     });
 
 })();
+
+/*
+function onSearchResultsLoaded() {
+    let heightRequired = document.body.scrollHeight; // or another way to determine height
+    
+    // Send a message to the parent page
+    window.parent.postMessage({
+        action: "adjustHeight",
+        height: heightRequired
+    }, "*");
+}
+*/
