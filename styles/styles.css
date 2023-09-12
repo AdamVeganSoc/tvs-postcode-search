@@ -5,7 +5,7 @@
 }
 
 h1, h2, h3, h4, h5, h6 {
-    margin-bottom: .5rem;
+    margin-bottom: 1.5rem;
     color: #008e84;
 }
 
@@ -45,4 +45,36 @@ form {
 .form-actions input[type="submit"]:hover {
     background-color: #f77300;
     cursor: pointer;
+}
+
+a {
+    color: #ff9e16;
+    font-weight: bold;
+}
+
+p {
+    margin: 0 0 1.5em;
+    max-width: 860px;
+}
+
+.rating {
+    padding: .5em 1em;
+    border-radius: 3px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.green-rating {
+    background-color: green;
+    color: white; 
+}
+
+.amber-rating {
+    background-color: orange;
+    color: white;
+}
+
+.red-rating {
+    background-color: red;
+    color: white;
 }

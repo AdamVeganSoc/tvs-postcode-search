@@ -17,10 +17,11 @@
                 return;
             }
 
-            // console.log(data.result);
+            console.log(data.result);
 
             // 2) Get the "nuts" data
-            const location = data.result.admin_county ? `${data.result.admin_county} County Council` : data.result.admin_district;
+            const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
+            const type = data.result.admin_county ? 'DIW' : 'MTW';
 
             let HTML = '<div style="margin-top:1.5rem;">We are sorry but the unitary authority or county council associated with your postcode could not be found.</div>'; // The output to display for the search results.
 
@@ -30,12 +31,17 @@
                 header: true,
                 delimiter: ',',
                 complete: function (results) {
-
                     // 4) Match CSV data with "nuts" data as closely as possible
-                    const csvRow = results.data.find(row => row.loc.trim().toLowerCase() === location.trim().toLowerCase());
+                    const csvRow = results.data.find(row => row.name.trim().toLowerCase().includes(location.trim().toLowerCase()));
 
                     if (csvRow) {
-                        HTML = `<div style="margin-top:1.5rem;"><h2>${csvRow.name}</h2><p>${csvRow.description}</p></div>`;
+                        HTML = `
+                            <div style="margin-top:1.5rem;">
+                                <h2>${csvRow.name}</h2>
+                                <p><strong>Our rating:</strong> <span class="rating ${csvRow.rating}-rating">${csvRow.rating}</span></p>
+                                <p><a href="https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all">Write to your local councillors</a></p>
+                                <p>${csvRow.description}</p>
+                            </div>`;
                     }
 
                     // Output the HTML result
