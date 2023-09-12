@@ -78,3 +78,9 @@ p {
     background-color: red;
     color: white;
 }
+
+@media screen and (max-width:40em) {
+    .form-item input {
+        width: 100%;
+    }
+}
