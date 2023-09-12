@@ -62,7 +62,10 @@
                     writeLink.addEventListener("click", function (event){
                         event.preventDefault();
 
-
+                        window.parent.postMessage({
+                            action: "linkClicked",
+                            url
+                        }, "https://www.vegansociety.com");
                     });
 
                 }
