@@ -1,3 +1,43 @@
+
+const mtws = [
+    "Liverpool", 
+    "Knowsley", 
+    "St Helens", 
+    "Sefton", 
+    "Wirral", 
+    "Manchester", 
+    "Bolton", 
+    "Bury", 
+    "Oldham", 
+    "Rochdale", 
+    "Salford", 
+    "Stockport", 
+    "Tameside", 
+    "Trafford", 
+    "Wigan", 
+    "Sheffield", 
+    "Barnsley", 
+    "Doncaster", 
+    "Rotherham", 
+    "Newcastle upon Tyne", 
+    "Gateshead", 
+    "South Tyneside", 
+    "North Tyneside", 
+    "Sunderland", 
+    "Birmingham", 
+    "Coventry", 
+    "Dudley", 
+    "Sandwell", 
+    "Solihull", 
+    "Walsall", 
+    "Wolverhampton", 
+    "Leeds", 
+    "Bradford", 
+    "Calderdale", 
+    "Kirklees", 
+    "Wakefield"
+]; 
+
 (function () {
 
     window.addEventListener("load", function () {
@@ -21,7 +61,13 @@
 
             // 2) Get the "nuts" data
             const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
-            const type = data.result.admin_county ? 'DIW' : 'MTW';
+            let type = data.result.admin_county ? 'DIW' : 'UTW';
+            
+            mtws.forEach(met => {
+                if (location.trim().toLowerCase().includes(met.trim().toLowerCase())) {
+                    type = 'MTW';
+                } 
+            });
 
             let HTML = '<div style="margin-top:1.5rem;">We are sorry but the unitary authority or county council associated with your postcode could not be found.</div>'; // The output to display for the search results.
 
