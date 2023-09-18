@@ -61,6 +61,10 @@ Make writetothem open in new tab
         }, "https://www.vegansociety.com");
     };
 
+    const cutSubstring = function (s, startIndex, endIndex) {
+        return s.substring(0, startIndex) + s.substring(endIndex);
+    };
+
     const formatResponse = function (response) {
         // Clean the response
         let formattedResponse = "";
@@ -145,7 +149,8 @@ Make writetothem open in new tab
                     words: {
                         start,
                         end: end >= 0 ? end + question.end.length : -1
-                    }
+                    },
+                    postfix: question.postfix
                 });
             }
         });
@@ -183,10 +188,20 @@ Make writetothem open in new tab
         });
 
         // Prep the formatted response
-        console.log(questionsDetected);
         questionsDetected.forEach(questionDetected => {
+            let res = questionDetected.raw.r;
+
+            // Detect the question postfix
+            if (questionDetected.postfix !== "") {
+                const postfixIndex = questionDetected.raw.r.toLowerCase().trim().indexOf(questionDetected.postfix);
+                
+                if (postfixIndex !== -1) {
+                    res = cutSubstring(res, postfixIndex, postfixIndex + 1 + questionDetected.postfix.length);
+                }
+            }
+
             formattedResponse += `<p><strong>${questionDetected.raw.q}</strong> `;
-            formattedResponse += `${questionDetected.raw.r}</p>`;
+            formattedResponse += `${res.replace(/[•]/g, "")}</p>`;
         });
 
         return formattedResponse;
