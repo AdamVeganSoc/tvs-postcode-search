@@ -1,3 +1,17 @@
+/*
+
+TODO
+----
+Embed writetothem (if possible)
+Large writetothem button
+Writetothem button present but greyed out before searching
+Move to writetothem in a new tab
+Increase the size of the postcode search field text
+For GREEN councils - write to local MP instead of council
+Embed template letter text into the page itself
+Auto-format notes for each council
+
+*/
 
 const mtws = [
     "Liverpool", 
