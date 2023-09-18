@@ -13,6 +13,8 @@ Make writetothem open in new tab
 
 (function () {
 
+    let url;
+
     const mtws = [
         "Liverpool", 
         "Knowsley", 
@@ -217,6 +219,8 @@ Make writetothem open in new tab
 
     window.addEventListener("load", function () {
 
+        let docHeight = document.body.scrollHeight;
+
         setTimeout(function () {
             // Send the page height out to a parent window
             window.parent.postMessage({
@@ -287,7 +291,7 @@ Make writetothem open in new tab
                     document.querySelector('#search-results').innerHTML = HTML;
 
                     // Get the document height
-                    const docHeight = document.body.scrollHeight;
+                    docHeight = document.body.scrollHeight;
 
                     // Send the page height out to a parent window
                     window.parent.postMessage({
@@ -295,7 +299,7 @@ Make writetothem open in new tab
                         height: docHeight
                     }, "*");
 
-                    const url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
+                    url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
 
                     if (allowWrite) {
                         writeLink.classList.remove('disabled'); 
