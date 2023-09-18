@@ -51,6 +51,12 @@ Make writetothem open in new tab
         "Kirklees", 
         "Wakefield"
     ];
+
+    const gradingText = {
+        green: "has taken demonstrable steps to be inclusive of veganism and to address meat and dairy consumption.",
+        amber: "has taken only limited steps to be inclusive of veganism and to address meat and dairy consumption.",
+        red: "has not taken steps to be inclusive of veganism and/or to address meat and dairy consumption."
+    };
     
     const writeHandler = function (event) {
         event.preventDefault();
@@ -188,7 +194,7 @@ Make writetothem open in new tab
         });
 
         // Prep the formatted response
-        questionsDetected.forEach(questionDetected => {
+        questionsDetected.forEach((questionDetected, i) => {
             let res = questionDetected.raw.r;
 
             // Detect the question postfix
@@ -200,8 +206,10 @@ Make writetothem open in new tab
                 }
             }
 
-            formattedResponse += `<p><strong>${questionDetected.raw.q}</strong> `;
-            formattedResponse += `${res.replace(/[•]/g, "")}</p>`;
+            const openingTag = i === 0 ? '<p>"' : '<p>';
+            const closingTag = i === questionsDetected.length-1 ? '"</p>' : "</p>";
+            formattedResponse += `${openingTag}<strong>${questionDetected.raw.q}</strong> `;
+            formattedResponse += `${res.replace(/[•]/g, "")}${closingTag}`;
         });
 
         return formattedResponse;
@@ -259,8 +267,11 @@ Make writetothem open in new tab
                         HTML = `
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
-                                <p><strong>Our rating:</strong> <span class="rating ${csvRow.rating.toLowerCase()}-rating">${csvRow.rating}</span></p>
+                                <p><strong>Your council was graded:</strong> <span class="rating ${csvRow.rating.toLowerCase()}-rating">${csvRow.rating}</span></p>
+                                <p><strong>This means your council:</strong> ${gradingText[csvRow.rating.toLowerCase()]}</p>
+                                <p>What your council told us in response to The Vegan Society’s FOI request:</p>
                                 ${formatResponse(csvRow.responses)}
+                                <p>If you have already written a letter using <a href="https://writetothem.com" target="_blank">WriteToThem</a>, you could consider signing our petition.</p>
                             </div>`;
                     }
 
@@ -293,9 +304,21 @@ Make writetothem open in new tab
 })();
 
 /*
-1. Yes. 2. Daily meal, vegetarian and vegan choices for school meals and vegetarian and vegan options for event catering. 3. No staff canteen 4. More. Fluctuates depending on client requirements 5. Yes 6. Yes. CITYSERVE are striving to deliver “plant-based” menus, this includes a variety of meat and non-meat options as well as a commitment to reducing waste and assurances of sustainability from our suppliers.
 
-1. With regard to the Public Sector Equality Duty, does your decision-making regarding the provision of food take into account the fact that veganism is a protected characteristic for the purpose of the Equality Act 2010? Yes/No Yes 2. How many vegan hot and cold meal options do you offer: • In your own local authority canteen every day (if you have one)? 0, 1, 2, 3 or more. Please also express this as a proportion of the overall number of options offered.  Oxfordshire County Council do not have a local authority canteen or catering outlet • In external events catering (if applicable)? Eg: 0, 1, 2, 3 or more. Please also express this as a proportion of the overall number of options offered. Oxfordshire County Council Catering Services provide school meals in 57 Primary schools and do not cater for external events. For our school meal menus, at least one of the three main meal options daily is a Vegan dish. The only other catering provided is for internal Full Council events, for which we engage an external supplier – these menus are 100% plant based 3. Is a requirement for providing vegan hot and cold meal options included within the catering procurement contracts you issue for other catering provision for which you are responsible including schools, leisure centres, care homes, libraries, and any other public buildings?  Yes/No Oxfordshire County Council only provide school lunches in 57 Primary schools. All other schools make their own catering arrangements, and the information may be held by individual schools. Schools are public authorities in their own right under the Freedom of Information Act and I would therefore suggest that you contact them directly to request this information. I have provided a link to our website where you can find the contact details of the schools within our area. http://www.oxfordshire.gov.uk/cms/schools/query Leisure centres, Libraries, care homes and any other public buildings will either make their own arrangements or the service will be provided by the district council and this information is not held by Oxfordshire County Council. 4. Has your organisation taken any action to reduce meat and dairy consumption in order to meet environmental goals? •If yes, please detail what actions have been taken, e.g. 100% or 50% plant-based food options offered. •If no, do you have ambitions to take action in this area, eg through setting meat reduction targets? Yes/no, if yes please detail what ambitions you have set out. Oxfordshire County Council’s Catering Service has increased the number of plant based / Vegan and vegetarian meal choices on the menu. Of the 45 main courses available in the current menu cycle only 14 contain meat and 14 choices are dairy free. The service is looking to reduce the meat content of some dishes further, for future menu cycles
+Type in your post code: [Postcode Searchbox]
+Your council was graded: [Category: red/amber/green] 
+This means your council: [pull relevant red/amber/green text from the PR[LR1] ] 
 
-With regard to the Public Sector Equality Duty, does your decision-making regarding the provision of food take into account the fact that veganism is a protected characteristic for the purpose of the Equality Act 2010? Yes/No Yes How many vegan hot and cold meal options do you offer: In your own local authority canteen every day (if you have one)? 0, 1, 2, 3 or more. Please also express this as a proportion of the overall number of options offered.  Not applicable, the Council does not have a canteen. In external events catering (if applicable)? Eg: 0, 1, 2, 3 or more. Please also express this as a proportion of the overall number of options offered.   Not applicable, the Council does not offer external events catering. Is a requirement for providing vegan hot and cold meal options included within the catering procurement contracts you issue for other catering provision for which you are responsible including schools, leisure centres, care homes, libraries, and any other public buildings?  Yes/No The Council does not have any catering contracts for this provision. Where catering is provided it is delivered via inhouse services. The Council’s City Catering Service delivers catering to those schools who wish to buy this service and vegan diets are catered for, and this is also the case for other provision such as in children’s care homes. Has your organisation taken any action to reduce meat and dairy consumption in order to meet environmental goals? ·        If yes, please detail what actions have been taken, e.g. 100% or 50% plant-based food options offered. • The council has developed, and is implementing a Food Plan for the city, which aims to make Leicester “a healthy and sustainable food city”. The six ambitions of the plan include: “Transforming food procurement and catering” (ambition 5) and “Promoting sustainable food and addressing the climate emergency” (ambition 6). • There is an action in the current Food Plan Action Plan to develop a ‘good food procurement policy’ • In response to the ambitions in the current (and previous) Food Plans, the council’s in-house provider for schools catering – City Catering – has achieved the Soil Association’s Food for Life Served Here silver award. From a climate change perspective, the award has seasonal and local sourcing requirements, as well as points available for ethical sourcing and the introduction of pulses and vegetables to menus, although it doesn’t have any specific requirements to reduce meat and dairy • The Sustainable Schools Team has delivered a Low Carbon Lunches project in 15 schools ·        If no, do you have ambitions to take action in this area, eg through setting meat reduction targets? Yes/no, if yes please detail what ambitions you have set out. Not applicable.
+[Copy + Paste Button for template letter] 
+[Button for WriteToThem] 
+
+What your council told us in response to The Vegan Society’s FOI request: “[Text from FOI answer]” 
+
+If you have already written a letter using WriteToThem, you could consider signing our petition. 
+
+
+Green: your council has taken demonstrable steps to be inclusive of veganism and to address meat and dairy consumption 
+Amber: your council has taken only limited steps to be inclusive of veganism and to address meat and dairy consumption 
+Red: your council has not taken steps to be inclusive of veganism and/or to address meat and dairy consumption
+
 */
