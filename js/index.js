@@ -65,7 +65,7 @@ Make writetothem open in new tab
             action: "linkClicked",
             url
         }, "*");
-    
+    }
 
     const cutSubstring = function (s, startIndex, endIndex) {
         return s.substring(0, startIndex) + s.substring(endIndex);
@@ -302,23 +302,3 @@ Make writetothem open in new tab
     });
 
 })();
-
-/*
-
-Type in your post code: [Postcode Searchbox]
-Your council was graded: [Category: red/amber/green] 
-This means your council: [pull relevant red/amber/green text from the PR[LR1] ] 
-
-[Copy + Paste Button for template letter] 
-[Button for WriteToThem] 
-
-What your council told us in response to The Vegan Society’s FOI request: “[Text from FOI answer]” 
-
-If you have already written a letter using WriteToThem, you could consider signing our petition. 
-
-
-Green: your council has taken demonstrable steps to be inclusive of veganism and to address meat and dairy consumption 
-Amber: your council has taken only limited steps to be inclusive of veganism and to address meat and dairy consumption 
-Red: your council has not taken steps to be inclusive of veganism and/or to address meat and dairy consumption
-
-*/
