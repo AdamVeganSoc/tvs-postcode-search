@@ -217,6 +217,14 @@ Make writetothem open in new tab
 
     window.addEventListener("load", function () {
 
+        setTimeout(function () {
+            // Send the page height out to a parent window
+            window.parent.postMessage({
+                action: "adjustHeight",
+                height: docHeight
+            }, "*");
+        }, 500);
+
         document.querySelector("form").addEventListener("submit", async function (evt) {
 
             evt.preventDefault();
