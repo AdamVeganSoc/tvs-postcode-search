@@ -64,8 +64,8 @@ Make writetothem open in new tab
         window.parent.postMessage({
             action: "linkClicked",
             url
-        }, "https://www.vegansociety.com");
-    };
+        }, "*");
+    
 
     const cutSubstring = function (s, startIndex, endIndex) {
         return s.substring(0, startIndex) + s.substring(endIndex);
@@ -285,7 +285,7 @@ Make writetothem open in new tab
                     window.parent.postMessage({
                         action: "adjustHeight",
                         height: docHeight
-                    }, "https://www.vegansociety.com");
+                    }, "*");
 
                     const url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
 
