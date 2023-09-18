@@ -70,7 +70,7 @@ Make writetothem open in new tab
                 number: "1.",
                 start: "with regard to the public sector equality duty",
                 end: "purpose of the equality act 2010?",
-                postfix: "(yes/no)"
+                postfix: "yes/no"
             },
             {
                 number: "2.",
@@ -82,13 +82,49 @@ Make writetothem open in new tab
                 number: "3.",
                 start: "is a requirement for providing vegan hot",
                 end: "homes, libraries, and any other public buildings?",
-                postfix: "(yes/no)"
+                postfix: "yes/no"
             },
             {
                 number: "4.",
                 start: "has your organisation taken any action to reduce meat",
                 end: "in order to meet environmental goals?",
-                postfix: "(yes/no)"
+                postfix: "yes/no"
+            },
+            {
+                number: "5.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
+            },
+            {
+                number: "6.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
+            },
+            {
+                number: "7.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
+            },
+            {
+                number: "8.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
+            },
+            {
+                number: "9.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
+            },
+            {
+                number: "10.",
+                start: "-----",
+                end: "-----",
+                postfix: ""
             }
         ];
 
@@ -99,7 +135,7 @@ Make writetothem open in new tab
             const number = res.indexOf(question.number);
             const start = res.indexOf(question.start);
             const end = res.indexOf(question.end);
-            if (number || number && start && end || start && end) {
+            if (number !== -1 || (start !== -1 && end !== -1)) {
                 questionsDetected.push({
                     question: i,
                     num: {
@@ -147,9 +183,10 @@ Make writetothem open in new tab
         });
 
         // Prep the formatted response
+        console.log(questionsDetected);
         questionsDetected.forEach(questionDetected => {
-            formattedResponse += `<h2>${questionDetected.raw.q}</h2>`;
-            formattedResponse += `<p>${questionDetected.raw.r}</p>`;
+            formattedResponse += `<p><strong>${questionDetected.raw.q}</strong> `;
+            formattedResponse += `${questionDetected.raw.r}</p>`;
         });
 
         return formattedResponse;
