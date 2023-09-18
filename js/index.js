@@ -3,63 +3,61 @@
 TODO
 ----
 Embed writetothem (if possible)
-Large writetothem button
-Writetothem button present but greyed out before searching
 For GREEN councils - write to local MP instead of council
 Embed template letter text into the page itself
 Auto-format notes for each council
 
 */
 
-const mtws = [
-    "Liverpool", 
-    "Knowsley", 
-    "St Helens", 
-    "Sefton", 
-    "Wirral", 
-    "Manchester", 
-    "Bolton", 
-    "Bury", 
-    "Oldham", 
-    "Rochdale", 
-    "Salford", 
-    "Stockport", 
-    "Tameside", 
-    "Trafford", 
-    "Wigan", 
-    "Sheffield", 
-    "Barnsley", 
-    "Doncaster", 
-    "Rotherham", 
-    "Newcastle upon Tyne", 
-    "Gateshead", 
-    "South Tyneside", 
-    "North Tyneside", 
-    "Sunderland", 
-    "Birmingham", 
-    "Coventry", 
-    "Dudley", 
-    "Sandwell", 
-    "Solihull", 
-    "Walsall", 
-    "Wolverhampton", 
-    "Leeds", 
-    "Bradford", 
-    "Calderdale", 
-    "Kirklees", 
-    "Wakefield"
-];
-
-const writeHandler = function (event) {
-    event.preventDefault();
-
-    window.parent.postMessage({
-        action: "linkClicked",
-        url
-    }, "https://www.vegansociety.com");
-};
-
 (function () {
+
+    const mtws = [
+        "Liverpool", 
+        "Knowsley", 
+        "St Helens", 
+        "Sefton", 
+        "Wirral", 
+        "Manchester", 
+        "Bolton", 
+        "Bury", 
+        "Oldham", 
+        "Rochdale", 
+        "Salford", 
+        "Stockport", 
+        "Tameside", 
+        "Trafford", 
+        "Wigan", 
+        "Sheffield", 
+        "Barnsley", 
+        "Doncaster", 
+        "Rotherham", 
+        "Newcastle upon Tyne", 
+        "Gateshead", 
+        "South Tyneside", 
+        "North Tyneside", 
+        "Sunderland", 
+        "Birmingham", 
+        "Coventry", 
+        "Dudley", 
+        "Sandwell", 
+        "Solihull", 
+        "Walsall", 
+        "Wolverhampton", 
+        "Leeds", 
+        "Bradford", 
+        "Calderdale", 
+        "Kirklees", 
+        "Wakefield"
+    ];
+    
+    const writeHandler = function (event) {
+        event.preventDefault();
+    
+        window.parent.postMessage({
+            action: "linkClicked",
+            url
+        }, "https://www.vegansociety.com");
+    };
 
     window.addEventListener("load", function () {
 
@@ -78,12 +76,13 @@ const writeHandler = function (event) {
             writeLink.removeEventListener("click", writeHandler);
             writeLink.classList.add('disabled');
 
+            // Clear the search results
+            document.querySelector('#search-results').innerHTML = "";
+
             if (data.status === 404) {
                 document.querySelector('#search-results').innerHTML = `<div style="margin-top:1.5rem;">Invalid postcode</div>`;
                 return;
             }
-
-            console.log(data.result);
 
             // 2) Get the "nuts" data
             const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
