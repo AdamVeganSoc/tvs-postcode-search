@@ -48,9 +48,27 @@ form {
     cursor: pointer;
 }
 
+#button-area {
+    margin-top: 1.5rem;
+}
+
 a {
-    color: #ff9e16;
+    background: rgb(255, 158, 22);
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 1.5em;
+    border-radius: 3em;
     font-weight: bold;
+    font-size: 22px;
+}
+
+a.disabled {
+    background: grey;
+    cursor: default;
+}
+
+a:not(.disabled):hover {
+    background-color: #f77300;
 }
 
 p {
