@@ -4,10 +4,12 @@ TODO
 ----
 Embed writetothem (if possible)
 For GREEN councils - write to local MP instead of council
-Embed template letter text into the page itself
+Embed template letter text into the page itself - copy to clipboard functionality
 Auto-format notes for each council
 Update data to latest CSV
 Make writetothem open in new tab
+Emphasise writetothem button
+Style the response box
 
 */
 
@@ -208,8 +210,8 @@ Make writetothem open in new tab
                 }
             }
 
-            const openingTag = i === 0 ? '<p>"' : '<p>';
-            const closingTag = i === questionsDetected.length-1 ? '"</p>' : "</p>";
+            const openingTag = i === 0 ? '<p><span class="quotemark start">"</span>' : '<p>';
+            const closingTag = i === questionsDetected.length-1 ? '<span class="quotemark end">"</span></p>' : "</p>";
             formattedResponse += `${openingTag}<strong>${questionDetected.raw.q}</strong> `;
             formattedResponse += `${res.replace(/[•]/g, "")}${closingTag}`;
         });
@@ -282,7 +284,7 @@ Make writetothem open in new tab
                                 <p><strong>Your council was graded:</strong> <span class="rating ${csvRow.rating.toLowerCase()}-rating">${csvRow.rating}</span></p>
                                 <p><strong>This means your council:</strong> ${gradingText[csvRow.rating.toLowerCase()]}</p>
                                 <p>What your council told us in response to The Vegan Society’s FOI request:</p>
-                                ${formatResponse(csvRow.responses)}
+                                <div class="responses">${formatResponse(csvRow.responses)}</div>
                                 <p>If you have already written a letter using <a href="https://writetothem.com" target="_blank">WriteToThem</a>, you could consider signing our petition.</p>
                             </div>`;
                     }

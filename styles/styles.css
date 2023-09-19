@@ -67,7 +67,7 @@ a#writeToThem {
     font-size: 22px;
 }
 
-a.disabled {
+a#writeToThem.disabled {
     background: grey;
     cursor: default;
 }
@@ -101,6 +101,27 @@ p {
 .red-rating {
     background-color: #ab004f;
     color: white;
+}
+
+.responses {
+    position: relative;
+    background-color: #ccc;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.quotemark {
+    position: absolute;
+    font-weight: bolder;
+    font-size: 30px;
+}
+
+.quotemark.start {
+    margin-left: -.75rem;
+}
+
+.quotemark.end {
+    margin-right: 1rem;
 }
 
 @media screen and (max-width:40em) {
