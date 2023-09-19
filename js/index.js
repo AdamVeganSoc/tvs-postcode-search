@@ -2,9 +2,7 @@
 
 TODO
 ----
-Auto-format notes for each council
 Update data to latest CSV
-Emphasise writetothem button
 */
 
 (function() {
