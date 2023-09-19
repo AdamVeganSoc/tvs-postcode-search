@@ -107,7 +107,7 @@ Paste it into writetothem.`;
                         .replace("A1.", "")
                         .replace("A2.", "")
                         .replace("A3.", "")
-                        .replace("A4.", "4.");
+                        .replace("A4.", "");
 
         // Clean the response
         let formattedResponse = "";
