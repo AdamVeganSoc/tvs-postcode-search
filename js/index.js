@@ -7,7 +7,6 @@ Auto-format notes for each council
 Update data to latest CSV
 Make writetothem open in new tab
 Emphasise writetothem button
-Adjust 'search' button styling so that it matches the write link
 
 */
 
@@ -243,6 +242,8 @@ Adjust 'search' button styling so that it matches the write link
             const writeLink = document.querySelector("#writeToThem");
             writeLink.removeEventListener("click", writeHandler);
             writeLink.classList.add('disabled');
+            writeLink.setAttribute('href', '#');
+            writeLink.setAttribute('target', '_self');
 
             // Clear the search results
             document.querySelector('#search-results').innerHTML = "";
@@ -311,7 +312,9 @@ Adjust 'search' button styling so that it matches the write link
 
                     if (allowWrite) {
                         writeLink.classList.remove('disabled');
-                        writeLink.addEventListener("click", writeHandler);
+                        //writeLink.addEventListener("click", writeHandler);
+                        writeLink.setAttribute('href', url);
+                        writeLink.setAttribute('target', '_blank');
                     }
 
                 }
