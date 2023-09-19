@@ -157,7 +157,7 @@ Paste it into writetothem.`;
         // Try to detect the questions in a response
         const questionsDetected = [];
         questions.forEach((question, i) => {
-            const res = response.toLowerCase().trim();
+            const res = response.toLowerCase().trim().replace (/[\n\r]/g, ' ');
             const number = res.indexOf(question.number);
             const start = res.indexOf(question.start);
             const end = res.indexOf(question.end);
