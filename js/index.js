@@ -75,7 +75,8 @@ Paste it into writetothem.`;
         // Use the Clipboard API to write the text to the clipboard
         navigator.clipboard.writeText(templateLetter)
             .then(() => {
-                document.getElementById('copiedText').innerHTML = "copied!"
+                document.getElementById('copiedText').innerHTML = "copied!";
+                adjustHeight();
             })
             .catch(err => {
                 console.error('Failed to copy text: ', err);
@@ -84,6 +85,17 @@ Paste it into writetothem.`;
 
     const cutSubstring = function(s, startIndex, endIndex) {
         return s.substring(0, startIndex) + s.substring(endIndex);
+    };
+
+    const adjustHeight = function() {
+        // Get the document height
+        const docHeight = document.body.scrollHeight;
+
+        // Send the page height out to a parent window
+        window.parent.postMessage({
+            action: "adjustHeight",
+            height: docHeight
+        }, "*");
     };
 
     const formatResponse = function(response) {
@@ -224,14 +236,9 @@ Paste it into writetothem.`;
         // Set up the copy-paste button
         document.getElementById('copyPaste').addEventListener("click", copyTextToClipboard);
 
-        let docHeight = document.body.scrollHeight;
-
         setTimeout(function() {
             // Send the page height out to a parent window
-            window.parent.postMessage({
-                action: "adjustHeight",
-                height: docHeight
-            }, "*");
+            adjustHeight();
         }, 500);
 
         document.querySelector("form").addEventListener("submit", async function(evt) {
@@ -301,14 +308,7 @@ Paste it into writetothem.`;
                     // Output the HTML result
                     document.querySelector('#search-results').innerHTML = HTML;
 
-                    // Get the document height
-                    docHeight = document.body.scrollHeight;
-
-                    // Send the page height out to a parent window
-                    window.parent.postMessage({
-                        action: "adjustHeight",
-                        height: docHeight
-                    }, "*");
+                    adjustHeight();
 
                     if (a === "council") {
                         url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
