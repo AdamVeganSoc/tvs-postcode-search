@@ -158,9 +158,17 @@ Paste it into writetothem.`;
         const questionsDetected = [];
         questions.forEach((question, i) => {
             const res = response.toLowerCase().trim().replace (/[\n\r]/g, ' ');
-            const number = res.indexOf(question.number);
-            const start = res.indexOf(question.start);
-            const end = res.indexOf(question.end);
+            let number = res.indexOf(question.number);
+            let start = res.indexOf(question.start);
+            let end = res.indexOf(question.end);
+
+            // If the number if found and it is not at the beginning of the string.
+            if (number !== -1 && number !== 0) {
+                // Check the character prior to make sure this is a question number.
+                const char = res.charAt(number-1);
+                if (char !== " ") number = -1; // Clear the number if it doesn't have a space before it.
+            }
+
             if (number !== -1 || (start !== -1 && end !== -1)) {
                 questionsDetected.push({
                     question: i,
