@@ -2,12 +2,13 @@
 
 TODO
 ----
-Embed writetothem (if possible)
 Embed template letter text into the page itself - copy to clipboard functionality
 Auto-format notes for each council
 Update data to latest CSV
 Make writetothem open in new tab
 Emphasise writetothem button
+Fix mobile styling for write link button - it doesn't look great on mobile
+Adjust 'search' button styling so that it matches the write link
 
 */
 
@@ -279,7 +280,7 @@ Emphasise writetothem button
                     if (csvRow) {
                         allowWrite = true;
                         a = csvRow.rating.toLowerCase() === 'green' ? 'westminstermp' : 'council';
-                        writeLink.innerHTML = `Write to your local ${a === 'westminstermp' ? 'MPs' : 'councillors' }`;
+                        writeLink.innerHTML = `Write to your local ${a === 'westminstermp' ? 'MP' : 'councillors' }`;
                         HTML = `
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
@@ -310,7 +311,7 @@ Emphasise writetothem button
                     }
 
                     if (allowWrite) {
-                        writeLink.classList.remove('disabled'); 
+                        writeLink.classList.remove('disabled');
                         writeLink.addEventListener("click", writeHandler);
                     }
 

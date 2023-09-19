@@ -65,6 +65,9 @@ a#writeToThem {
     border-radius: 3em;
     font-weight: bold;
     font-size: 22px;
+    display: block;
+    text-align: center;
+    max-width: 50%;
 }
 
 a#writeToThem.disabled {
@@ -125,6 +128,9 @@ p {
 }
 
 @media screen and (max-width:40em) {
+    a#writeToThem {
+        max-width: 100%;
+    }
     .form-item input {
         display: block;
         width: calc(100% - .5rem);
