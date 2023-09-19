@@ -2,54 +2,57 @@
 
 TODO
 ----
-Embed template letter text into the page itself - copy to clipboard functionality
 Auto-format notes for each council
 Update data to latest CSV
-Make writetothem open in new tab
 Emphasise writetothem button
-
 */
 
-(function () {
+(function() {
 
     let url;
 
+    const templateLetter = `This is a test template letter.
+
+Clicking on this button has copied it to the clipboard.
+
+Paste it into writetothem.`;
+
     const mtws = [
-        "Liverpool", 
-        "Knowsley", 
-        "St Helens", 
-        "Sefton", 
-        "Wirral", 
-        "Manchester", 
-        "Bolton", 
-        "Bury", 
-        "Oldham", 
-        "Rochdale", 
-        "Salford", 
-        "Stockport", 
-        "Tameside", 
-        "Trafford", 
-        "Wigan", 
-        "Sheffield", 
-        "Barnsley", 
-        "Doncaster", 
-        "Rotherham", 
-        "Newcastle upon Tyne", 
-        "Gateshead", 
-        "South Tyneside", 
-        "North Tyneside", 
-        "Sunderland", 
-        "Birmingham", 
-        "Coventry", 
-        "Dudley", 
-        "Sandwell", 
-        "Solihull", 
-        "Walsall", 
-        "Wolverhampton", 
-        "Leeds", 
-        "Bradford", 
-        "Calderdale", 
-        "Kirklees", 
+        "Liverpool",
+        "Knowsley",
+        "St Helens",
+        "Sefton",
+        "Wirral",
+        "Manchester",
+        "Bolton",
+        "Bury",
+        "Oldham",
+        "Rochdale",
+        "Salford",
+        "Stockport",
+        "Tameside",
+        "Trafford",
+        "Wigan",
+        "Sheffield",
+        "Barnsley",
+        "Doncaster",
+        "Rotherham",
+        "Newcastle upon Tyne",
+        "Gateshead",
+        "South Tyneside",
+        "North Tyneside",
+        "Sunderland",
+        "Birmingham",
+        "Coventry",
+        "Dudley",
+        "Sandwell",
+        "Solihull",
+        "Walsall",
+        "Wolverhampton",
+        "Leeds",
+        "Bradford",
+        "Calderdale",
+        "Kirklees",
         "Wakefield"
     ];
 
@@ -58,86 +61,86 @@ Emphasise writetothem button
         amber: "has taken only limited steps to be inclusive of veganism and to address meat and dairy consumption.",
         red: "has not taken steps to be inclusive of veganism and/or to address meat and dairy consumption."
     };
-    
-    const writeHandler = function (event) {
+
+    const writeHandler = function(event) {
         event.preventDefault();
-    
+
         window.parent.postMessage({
             action: "linkClicked",
             url
         }, "*");
     }
 
-    const cutSubstring = function (s, startIndex, endIndex) {
+    const copyTextToClipboard = function(event) {
+        // Use the Clipboard API to write the text to the clipboard
+        navigator.clipboard.writeText(templateLetter)
+            .then(() => {
+                document.getElementById('copiedText').innerHTML = "copied!"
+            })
+            .catch(err => {
+                console.error('Failed to copy text: ', err);
+            });
+    }
+
+    const cutSubstring = function(s, startIndex, endIndex) {
         return s.substring(0, startIndex) + s.substring(endIndex);
     };
 
-    const formatResponse = function (response) {
+    const formatResponse = function(response) {
         // Clean the response
         let formattedResponse = "";
 
-        const questions = [
-            {
-                number: "1.",
-                start: "with regard to the public sector equality duty",
-                end: "purpose of the equality act 2010?",
-                postfix: "yes/no"
-            },
-            {
-                number: "2.",
-                start: "how many vegan hot",
-                end: "options do you offer:",
-                postfix: ""
-            },
-            {
-                number: "3.",
-                start: "is a requirement for providing vegan hot",
-                end: "homes, libraries, and any other public buildings?",
-                postfix: "yes/no"
-            },
-            {
-                number: "4.",
-                start: "has your organisation taken any action to reduce meat",
-                end: "in order to meet environmental goals?",
-                postfix: "yes/no"
-            },
-            {
-                number: "5.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            },
-            {
-                number: "6.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            },
-            {
-                number: "7.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            },
-            {
-                number: "8.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            },
-            {
-                number: "9.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            },
-            {
-                number: "10.",
-                start: "-----",
-                end: "-----",
-                postfix: ""
-            }
-        ];
+        const questions = [{
+            number: "1.",
+            start: "with regard to the public sector equality duty",
+            end: "purpose of the equality act 2010?",
+            postfix: "yes/no"
+        }, {
+            number: "2.",
+            start: "how many vegan hot",
+            end: "options do you offer:",
+            postfix: ""
+        }, {
+            number: "3.",
+            start: "is a requirement for providing vegan hot",
+            end: "homes, libraries, and any other public buildings?",
+            postfix: "yes/no"
+        }, {
+            number: "4.",
+            start: "has your organisation taken any action to reduce meat",
+            end: "in order to meet environmental goals?",
+            postfix: "yes/no"
+        }, {
+            number: "5.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }, {
+            number: "6.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }, {
+            number: "7.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }, {
+            number: "8.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }, {
+            number: "9.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }, {
+            number: "10.",
+            start: "-----",
+            end: "-----",
+            postfix: ""
+        }];
 
         // Try to detect the questions in a response
         const questionsDetected = [];
@@ -182,9 +185,9 @@ Emphasise writetothem button
 
             // Now set the end to the response slicing
             let endRSlice;
-            if (i !== questionsDetected.length-1) {
+            if (i !== questionsDetected.length - 1) {
                 // This isn't the last question.
-                endRSlice = questionsDetected[i+1].num.start !== -1 ? questionsDetected[i+1].num.start-1 : questionsDetected[i+1].words.start-1;
+                endRSlice = questionsDetected[i + 1].num.start !== -1 ? questionsDetected[i + 1].num.start - 1 : questionsDetected[i + 1].words.start - 1;
             }
 
             // Slice the question from the responses
@@ -201,14 +204,14 @@ Emphasise writetothem button
             // Detect the question postfix
             if (questionDetected.postfix !== "") {
                 const postfixIndex = questionDetected.raw.r.toLowerCase().trim().indexOf(questionDetected.postfix);
-                
+
                 if (postfixIndex !== -1) {
                     res = cutSubstring(res, postfixIndex, postfixIndex + 1 + questionDetected.postfix.length);
                 }
             }
 
             const openingTag = i === 0 ? '<p><span class="quotemark start">"</span>' : '<p>';
-            const closingTag = i === questionsDetected.length-1 ? '<span class="quotemark end">"</span></p>' : "</p>";
+            const closingTag = i === questionsDetected.length - 1 ? '<span class="quotemark end">"</span></p>' : "</p>";
             formattedResponse += `${openingTag}<strong>${questionDetected.raw.q}</strong> `;
             formattedResponse += `${res.replace(/[•]/g, "")}${closingTag}`;
         });
@@ -216,11 +219,14 @@ Emphasise writetothem button
         return formattedResponse;
     }
 
-    window.addEventListener("load", function () {
+    window.addEventListener("load", function() {
+
+        // Set up the copy-paste button
+        document.getElementById('copyPaste').addEventListener("click", copyTextToClipboard);
 
         let docHeight = document.body.scrollHeight;
 
-        setTimeout(function () {
+        setTimeout(function() {
             // Send the page height out to a parent window
             window.parent.postMessage({
                 action: "adjustHeight",
@@ -228,7 +234,7 @@ Emphasise writetothem button
             }, "*");
         }, 500);
 
-        document.querySelector("form").addEventListener("submit", async function (evt) {
+        document.querySelector("form").addEventListener("submit", async function(evt) {
 
             evt.preventDefault();
 
@@ -256,11 +262,11 @@ Emphasise writetothem button
             // 2) Get the "nuts" data
             const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
             let type = data.result.admin_county ? 'DIW' : 'UTW';
-            
+
             mtws.forEach(met => {
                 if (location.trim().toLowerCase().includes(met.trim().toLowerCase())) {
                     type = 'MTW';
-                } 
+                }
             });
 
             let HTML = '<div style="margin-top:1.5rem;">We are sorry but the unitary authority or county council associated with your postcode could not be found.</div>'; // The output to display for the search results.
@@ -271,7 +277,7 @@ Emphasise writetothem button
                 download: true,
                 header: true,
                 delimiter: ',',
-                complete: function (results) {
+                complete: function(results) {
                     // 4) Match CSV data with "nuts" data as closely as possible
                     const csvRow = results.data.find(row => row.name.trim().toLowerCase().includes(location.trim().toLowerCase()));
 
