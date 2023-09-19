@@ -99,6 +99,16 @@ Paste it into writetothem.`;
     };
 
     const formatResponse = function(response) {
+
+        response = response.replace("Q1.", "1.")
+                        .replace("Q2.", "2.")
+                        .replace("Q3.", "3.")
+                        .replace("Q4.", "4.")
+                        .replace("A1.", "")
+                        .replace("A2.", "")
+                        .replace("A3.", "")
+                        .replace("A4.", "4.");
+
         // Clean the response
         let formattedResponse = "";
 
@@ -157,7 +167,7 @@ Paste it into writetothem.`;
         // Try to detect the questions in a response
         const questionsDetected = [];
         questions.forEach((question, i) => {
-            const res = response.toLowerCase().trim().replace (/[\n\r]/g, ' ');
+            const res = response.toLowerCase().trim().replace (/[\t\n\r]/g, ' ');
             let number = res.indexOf(question.number);
             let start = res.indexOf(question.start);
             let end = res.indexOf(question.end);
@@ -233,10 +243,10 @@ Paste it into writetothem.`;
             const openingTag = i === 0 ? '<p><span class="quotemark start">"</span>' : '<p>';
             const closingTag = i === questionsDetected.length - 1 ? '<span class="quotemark end">"</span></p>' : "</p>";
             formattedResponse += `${openingTag}<strong>${questionDetected.raw.q}</strong> `;
-            formattedResponse += `${res.replace(/[•]/g, "")}${closingTag}`;
+            formattedResponse += `${res.replace(/[]/g, "")}${closingTag}`;
         });
 
-        return formattedResponse;
+        return formattedResponse.replace(/        /g, ' ').replace(/•|·/g, '<br>');
     }
 
     window.addEventListener("load", function() {
