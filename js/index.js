@@ -7,7 +7,6 @@ Auto-format notes for each council
 Update data to latest CSV
 Make writetothem open in new tab
 Emphasise writetothem button
-Fix mobile styling for write link button - it doesn't look great on mobile
 Adjust 'search' button styling so that it matches the write link
 
 */

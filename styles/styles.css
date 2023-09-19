@@ -37,9 +37,8 @@ form {
     border: none;
     background-color: #ff9e17;
     color: white;
-    border-radius: 3px;
+    border-radius: 3em;
     padding: .5rem 1rem;
-    text-transform: uppercase;
     font-weight: bold;
 }
 
