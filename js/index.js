@@ -3,13 +3,11 @@
 TODO
 ----
 Embed writetothem (if possible)
-For GREEN councils - write to local MP instead of council
 Embed template letter text into the page itself - copy to clipboard functionality
 Auto-format notes for each council
 Update data to latest CSV
 Make writetothem open in new tab
 Emphasise writetothem button
-Style the response box
 
 */
 
@@ -276,8 +274,12 @@ Style the response box
                     // 4) Match CSV data with "nuts" data as closely as possible
                     const csvRow = results.data.find(row => row.name.trim().toLowerCase().includes(location.trim().toLowerCase()));
 
+                    let a = 'council'; // either council or MPs
+
                     if (csvRow) {
                         allowWrite = true;
+                        a = csvRow.rating.toLowerCase() === 'green' ? 'regionalmp' : 'council';
+                        writeLink.innerHTML = `Write to your local ${a === 'regionalmp' ? 'MPs' : 'councillors' }`;
                         HTML = `
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
@@ -301,7 +303,7 @@ Style the response box
                         height: docHeight
                     }, "*");
 
-                    url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
+                    url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=${a}&who=all`;
 
                     if (allowWrite) {
                         writeLink.classList.remove('disabled'); 
