@@ -278,8 +278,8 @@ Emphasise writetothem button
 
                     if (csvRow) {
                         allowWrite = true;
-                        a = csvRow.rating.toLowerCase() === 'green' ? 'regionalmp' : 'council';
-                        writeLink.innerHTML = `Write to your local ${a === 'regionalmp' ? 'MPs' : 'councillors' }`;
+                        a = csvRow.rating.toLowerCase() === 'green' ? 'westminstermp' : 'council';
+                        writeLink.innerHTML = `Write to your local ${a === 'westminstermp' ? 'MPs' : 'councillors' }`;
                         HTML = `
                             <div style="margin-top:1.5rem;">
                                 <h2>${csvRow.name}</h2>
@@ -303,7 +303,11 @@ Emphasise writetothem button
                         height: docHeight
                     }, "*");
 
-                    url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=${a}&who=all`;
+                    if (a === "council") {
+                        url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
+                    } else if (a === "westminstermp") {
+                        url = `https://www.writetothem.com/?a=westminstermp&pc=${data.result.postcode}`;
+                    }
 
                     if (allowWrite) {
                         writeLink.classList.remove('disabled'); 
