@@ -55,11 +55,11 @@ Update data to latest CSV
     const populateTemplates = function () {
         // Populate the template letters
         const councilDiv = document.getElementById('templateLetterCouncil');
-        if (councilDiv) templateLetterCouncil = councilDiv.innerHTML.replace(/    /g, "");
+        if (councilDiv && !templateLetterCouncil) templateLetterCouncil = councilDiv.innerHTML.replace(/    /g, "");
         const mpDiv = document.getElementById('templateLetterMP');
-        if (mpDiv) templateLetterMP = mpDiv.innerHTML.replace(/    /g, "");
+        if (mpDiv && !templateLetterMP) templateLetterMP = mpDiv.innerHTML.replace(/    /g, "");
         const petitionDiv = document.getElementById('petitionLink');
-        if (petitionDiv) petitionLink = petitionDiv.innerHTML.trim();
+        if (petitionDiv && !petitionLink) petitionLink = petitionDiv.innerHTML.trim();
     };
 
     const gradingText = {
@@ -79,6 +79,7 @@ Update data to latest CSV
 
     const copyTextToClipboard = function(event) {
         // Use the Clipboard API to write the text to the clipboard
+        populateTemplates();
         navigator.clipboard.writeText(templateLetterCouncil)
             .then(() => {
                 document.getElementById('copiedText').innerHTML = "copied!";
