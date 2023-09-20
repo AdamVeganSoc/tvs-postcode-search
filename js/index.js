@@ -52,6 +52,41 @@ Update data to latest CSV
         "Wakefield"
     ];
 
+    const lbws = [
+        "Barking and Dagenham",
+        "Barnet",
+        "Bexley",
+        "Brent",
+        "Bromley",
+        "Camden",
+        "Croydon",
+        "Ealing",
+        "Enfield",
+        "Greenwich",
+        "Hackney",
+        "Hammersmith and Fulham",
+        "Haringey",
+        "Harrow",
+        "Havering",
+        "Hillingdon",
+        "Hounslow",
+        "Islington",
+        "Kensington and Chelsea",
+        "Kingston upon Thames",
+        "Lambeth",
+        "Lewisham",
+        "Merton",
+        "Newham",
+        "Redbridge",
+        "Richmond upon Thames",
+        "Southwark",
+        "Sutton",
+        "Tower Hamlets",
+        "Waltham Forest",
+        "Wandsworth",
+        "Westminster"
+    ];
+
     const populateTemplates = function () {
         // Populate the template letters
         const councilDiv = document.getElementById('templateLetterCouncil');
@@ -299,9 +334,17 @@ Update data to latest CSV
             const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
             let type = data.result.admin_county ? 'DIW' : 'UTW';
 
+            // Check for metropolitan areas
             mtws.forEach(met => {
                 if (location.trim().toLowerCase().includes(met.trim().toLowerCase())) {
                     type = 'MTW';
+                }
+            });
+
+            // Check for London boroughs
+            lbws.forEach(lon => {
+                if (location.trim().toLowerCase().includes(lon.trim().toLowerCase())) {
+                    type = 'LBW';
                 }
             });
 
@@ -360,3 +403,38 @@ Update data to latest CSV
     });
 
 })();
+
+/*
+Barking and Dagenham,
+Barnet,
+Bexley,
+Brent,
+Bromley,
+Camden,
+Croydon,
+Ealing,
+Enfield,
+Greenwich,
+Hackney,
+Hammersmith and Fulham,
+Haringey,
+Harrow,
+Havering,
+Hillingdon,
+Hounslow,
+Islington,
+Kensington and Chelsea,
+Kingston upon Thames,
+Lambeth	check,
+Lewisham,
+Merton,
+Newham,
+Redbridge,
+Richmond upon Thames,
+Southwark,
+Sutton,
+Tower Hamlets,
+Waltham Forest,
+Wandsworth,
+Westminster
+*/
