@@ -9,9 +9,9 @@ Update data to latest CSV
 
     let url;
 
-    const templateLetterCouncil = document.getElementById('templateLetterCouncil').innerHTML.replace(/    /g, "");
-    const templateLetterMP = document.getElementById('templateLetterMP').innerHTML.replace(/    /g, "");
-    const petitionLink = document.getElementById('petitionLink').innerHTML.trim();
+    let templateLetterCouncil,
+        templateLetterMP,
+        petitionLink;
 
     const mtws = [
         "Liverpool",
@@ -246,6 +246,11 @@ Update data to latest CSV
     }
 
     window.addEventListener("load", function() {
+
+        // Populate the template letters
+        templateLetterCouncil = document.getElementById('templateLetterCouncil').innerHTML.replace(/    /g, "");
+        templateLetterMP = document.getElementById('templateLetterMP').innerHTML.replace(/    /g, "");
+        petitionLink = document.getElementById('petitionLink').innerHTML.trim();
 
         // Set up the copy-paste button
         document.getElementById('copyPaste').addEventListener("click", copyTextToClipboard);
