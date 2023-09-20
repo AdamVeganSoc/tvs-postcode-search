@@ -52,6 +52,16 @@ Update data to latest CSV
         "Wakefield"
     ];
 
+    const populateTemplates = function () {
+        // Populate the template letters
+        const councilDiv = document.getElementById('templateLetterCouncil');
+        if (councilDiv) templateLetterCouncil = councilDiv.innerHTML.replace(/    /g, "");
+        const mpDiv = document.getElementById('templateLetterMP');
+        if (mpDiv) templateLetterMP = mpDiv.innerHTML.replace(/    /g, "");
+        const petitionDiv = document.getElementById('petitionLink');
+        if (petitionDiv) petitionLink = petitionDiv.innerHTML.trim();
+    };
+
     const gradingText = {
         green: "has taken demonstrable steps to be inclusive of veganism and to address meat and dairy consumption.",
         amber: "has taken only limited steps to be inclusive of veganism and to address meat and dairy consumption.",
@@ -247,10 +257,7 @@ Update data to latest CSV
 
     window.addEventListener("load", function() {
 
-        // Populate the template letters
-        templateLetterCouncil = document.getElementById('templateLetterCouncil').innerHTML.replace(/    /g, "");
-        templateLetterMP = document.getElementById('templateLetterMP').innerHTML.replace(/    /g, "");
-        petitionLink = document.getElementById('petitionLink').innerHTML.trim();
+        populateTemplates();
 
         // Set up the copy-paste button
         document.getElementById('copyPaste').addEventListener("click", copyTextToClipboard);
@@ -261,6 +268,8 @@ Update data to latest CSV
         }, 500);
 
         document.querySelector("form").addEventListener("submit", async function(evt) {
+
+            populateTemplates();
 
             evt.preventDefault();
 
