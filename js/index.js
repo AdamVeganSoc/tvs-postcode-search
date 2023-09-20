@@ -9,11 +9,9 @@ Update data to latest CSV
 
     let url;
 
-    const templateLetter = `This is a test template letter.
-
-Clicking on this button has copied it to the clipboard.
-
-Paste it into writetothem.`;
+    const templateLetterCouncil = document.getElementById('templateLetterCouncil').innerHTML.replace(/    /g, "");
+    const templateLetterMP = document.getElementById('templateLetterMP').innerHTML.replace(/    /g, "");
+    const petitionLink = document.getElementById('petitionLink').innerHTML.trim();
 
     const mtws = [
         "Liverpool",
@@ -71,7 +69,7 @@ Paste it into writetothem.`;
 
     const copyTextToClipboard = function(event) {
         // Use the Clipboard API to write the text to the clipboard
-        navigator.clipboard.writeText(templateLetter)
+        navigator.clipboard.writeText(templateLetterCouncil)
             .then(() => {
                 document.getElementById('copiedText').innerHTML = "copied!";
                 adjustHeight();
@@ -317,7 +315,7 @@ Paste it into writetothem.`;
                                 <p><strong>This means your council:</strong> ${gradingText[csvRow.rating.toLowerCase()]}</p>
                                 <p>What your council told us in response to The Vegan Society’s FOI request:</p>
                                 <div class="responses">${formatResponse(csvRow.responses)}</div>
-                                <p>If you have already written a letter using <a href="https://writetothem.com" target="_blank">WriteToThem</a>, you could consider signing our petition.</p>
+                                <p>If you have already written a letter using <a href="https://writetothem.com" target="_blank">WriteToThem</a>, you could consider signing our <a href="${petitionLink}" target="_blank">petition</a>.</p>
                             </div>`;
                     }
 
