@@ -7,7 +7,9 @@ Update data to latest CSV
 
 (function() {
 
-    let url;
+    let url,
+        type,
+        a = "council";
 
     let templateLetterCouncil,
         templateLetterMP,
@@ -90,9 +92,9 @@ Update data to latest CSV
     const populateTemplates = function () {
         // Populate the template letters
         const councilDiv = document.getElementById('templateLetterCouncil');
-        if (councilDiv && !templateLetterCouncil) templateLetterCouncil = councilDiv.innerHTML.replace(/    /g, "");
+        if (councilDiv && !templateLetterCouncil) templateLetterCouncil = councilDiv.innerHTML.trim().replace(/    /g, "");
         const mpDiv = document.getElementById('templateLetterMP');
-        if (mpDiv && !templateLetterMP) templateLetterMP = mpDiv.innerHTML.replace(/    /g, "");
+        if (mpDiv && !templateLetterMP) templateLetterMP = mpDiv.innerHTML.trim().replace(/    /g, "");
         const petitionDiv = document.getElementById('petitionLink');
         if (petitionDiv && !petitionLink) petitionLink = petitionDiv.innerHTML.trim();
     };
@@ -115,7 +117,7 @@ Update data to latest CSV
     const copyTextToClipboard = function(event) {
         // Use the Clipboard API to write the text to the clipboard
         populateTemplates();
-        navigator.clipboard.writeText(templateLetterCouncil)
+        navigator.clipboard.writeText(a === 'council' ? templateLetterCouncil : templateLetterMP)
             .then(() => {
                 document.getElementById('copiedText').innerHTML = "copied!";
                 adjustHeight();
@@ -332,7 +334,7 @@ Update data to latest CSV
 
             // 2) Get the "nuts" data
             const location = data.result.admin_county ? data.result.admin_county : data.result.admin_district;
-            let type = data.result.admin_county ? 'DIW' : 'UTW';
+            type = data.result.admin_county ? 'DIW' : 'UTW';
 
             // Check for metropolitan areas
             mtws.forEach(met => {
@@ -360,7 +362,7 @@ Update data to latest CSV
                     // 4) Match CSV data with "nuts" data as closely as possible
                     const csvRow = results.data.find(row => row.name.trim().toLowerCase().includes(location.trim().toLowerCase()));
 
-                    let a = 'council'; // either council or MPs
+                    a = 'council'; // either council or MPs
 
                     if (csvRow) {
                         allowWrite = true;
