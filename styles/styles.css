@@ -56,6 +56,19 @@ form {
     margin-top: 1.5rem;
 }
 
+a.bottom-link {
+    background: rgb(255, 158, 22);
+    color: white;
+    text-decoration: none;
+    padding: 0.5em 0.75em;
+    border-radius: 3em;
+    font-weight: bold;
+}
+
+a.bottom-link:hover {
+    background-color: #f77300;
+}
+
 a {
     color: rgb(255, 158, 22);
     font-weight: bold;

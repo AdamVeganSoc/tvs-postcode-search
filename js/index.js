@@ -367,6 +367,13 @@ Update data to latest CSV
                     if (csvRow) {
                         allowWrite = true;
                         a = csvRow.rating.toLowerCase() === 'green' ? 'westminstermp' : 'council';
+                        
+                        if (a === "council") {
+                            url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
+                        } else if (a === "westminstermp") {
+                            url = `https://www.writetothem.com/?a=westminstermp&pc=${data.result.postcode}`;
+                        }
+                        
                         writeLink.innerHTML = `Write to your local ${a === 'westminstermp' ? 'MP' : 'councillors' }`;
                         HTML = `
                             <div style="margin-top:1.5rem;">
@@ -375,7 +382,7 @@ Update data to latest CSV
                                 <p><strong>This means your council:</strong> ${gradingText[csvRow.rating.toLowerCase()]}</p>
                                 <p>What your council told us in response to The Vegan Society’s FOI request:</p>
                                 <div class="responses">${formatResponse(csvRow.responses)}</div>
-                                <p>If you have already written a letter using <a href="https://writetothem.com" target="_blank">WriteToThem</a>, you could consider signing our <a href="${petitionLink}" target="_blank">petition</a>.</p>
+                                <p>If you have already <a class="bottom-link" href="${url}" target="_blank">written to your representatives</a>, please consider signing our <a href="${petitionLink}" target="_blank">petition</a>.</p>
                             </div>`;
                     }
 
@@ -383,12 +390,6 @@ Update data to latest CSV
                     document.querySelector('#search-results').innerHTML = HTML;
 
                     adjustHeight();
-
-                    if (a === "council") {
-                        url = `https://www.writetothem.com/write?pc=${data.result.postcode}&type=${type}&a=council&who=all`;
-                    } else if (a === "westminstermp") {
-                        url = `https://www.writetothem.com/?a=westminstermp&pc=${data.result.postcode}`;
-                    }
 
                     if (allowWrite) {
                         writeLink.classList.remove('disabled');
@@ -405,38 +406,3 @@ Update data to latest CSV
     });
 
 })();
-
-/*
-Barking and Dagenham,
-Barnet,
-Bexley,
-Brent,
-Bromley,
-Camden,
-Croydon,
-Ealing,
-Enfield,
-Greenwich,
-Hackney,
-Hammersmith and Fulham,
-Haringey,
-Harrow,
-Havering,
-Hillingdon,
-Hounslow,
-Islington,
-Kensington and Chelsea,
-Kingston upon Thames,
-Lambeth	check,
-Lewisham,
-Merton,
-Newham,
-Redbridge,
-Richmond upon Thames,
-Southwark,
-Sutton,
-Tower Hamlets,
-Waltham Forest,
-Wandsworth,
-Westminster
-*/
