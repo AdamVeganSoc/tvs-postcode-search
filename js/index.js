@@ -92,9 +92,9 @@ Update data to latest CSV
     const populateTemplates = function () {
         // Populate the template letters
         const councilDiv = document.getElementById('templateLetterCouncil');
-        if (councilDiv && !templateLetterCouncil) templateLetterCouncil = councilDiv.innerHTML.trim().replace(/    /g, "");
+        if (councilDiv && !templateLetterCouncil) templateLetterCouncil = councilDiv.innerHTML.trim().replace(/    |  |\t/g, "");
         const mpDiv = document.getElementById('templateLetterMP');
-        if (mpDiv && !templateLetterMP) templateLetterMP = mpDiv.innerHTML.trim().replace(/    /g, "");
+        if (mpDiv && !templateLetterMP) templateLetterMP = mpDiv.innerHTML.trim().replace(/    |  |\t/g, "");
         const petitionDiv = document.getElementById('petitionLink');
         if (petitionDiv && !petitionLink) petitionLink = petitionDiv.innerHTML.trim();
     };
